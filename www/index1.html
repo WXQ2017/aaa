@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Hello World</title>
+</head>
+
+<body>
+    <div class="app">
+        <input type="button" value="alert"/>
+        <input type="button" value="alert">
+        <input type="button" value="叫">
+        <input type="button" value="获取一次重力感应">
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded',function () {
+            let btns=document.getElementsByTagName('input');
+            btns[0].addEventListener('touchstart',function () {
+                navigator.notification.alert('弹出来', function () {
+
+                }, '标题', '确定');
+            })
+            btns[1].addEventListener('touchstart',function () {
+                navigator.notification.alert('消息', function () {
+
+                }, '标题', '确定');
+            })
+            btns[2].addEventListener('touchstart',function () {
+                navigator.notification.beep(1);
+                //振动
+                //navigator.notification.vibrate(2000);
+            })
+
+            btns[2].addEventListener('touchstart',function () {
+                function onSuccess(acceleration) {
+                    alert('Acceleration X: ' + acceleration.x + '\n' +
+                        'Acceleration Y: ' + acceleration.y + '\n' +
+                        'Acceleration Z: ' + acceleration.z + '\n' +
+                        'Timestamp: ' + acceleration.timestamp + '\n');
+                }
+
+                function onError() {
+                    alert('onError!');
+                }
+            })
+
+            navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+        },false)
+    </script>
+</body>
+
+</html>
